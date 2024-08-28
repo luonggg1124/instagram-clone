@@ -4,8 +4,9 @@ import {Input} from "@/components/ui/input.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import axios from "axios";
 import {toast} from "sonner";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import facebookIcon from "@/assets/facebook.svg";
+import {Loader2} from "lucide-react";
 
 
 const Login = () => {
@@ -13,6 +14,8 @@ const Login = () => {
         email: "",
         password: ""
     });
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const changeEventHandler = (e) => {
         setInput({...input, [e.target.name]: e.target.value});
     }
@@ -20,6 +23,7 @@ const Login = () => {
     const signupHandler = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const res = await axios.post('http://localhost:8000/api/v1/user/login', input, {
                 headers: {
                     "Content-Type": "application/json",
@@ -27,11 +31,14 @@ const Login = () => {
                 withCredentials: true
             });
             if (res.data.success) {
+                navigate("/");
                 toast.success(res.data.message);
             }
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
     return (
@@ -65,7 +72,18 @@ const Login = () => {
                                value={input.password}
                         />
                     </div>
-                    <Button type="submit">Login</Button>
+                    {
+                        loading ? (
+                            <Button type="submit">
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                                Please wait
+                            </Button>
+
+                        ) : (
+                            <Button type="submit" >Login</Button>
+                        )
+                    }
+
 
                     <div className="flex justify-between items-center ">
                         <div className="bg-gray-300 h-px my-4 w-1/2"></div>

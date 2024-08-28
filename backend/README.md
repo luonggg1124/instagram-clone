@@ -4,4 +4,5 @@ npm i dotenv
 npm i datauri  
 npm i cloudinary  
 npm i multer  
-npm i sharp
+npm i sharp  
+npm install lodash

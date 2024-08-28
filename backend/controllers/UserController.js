@@ -13,16 +13,18 @@ export const register = async (req, res) => {
                 success: false
             });
         }
+
+
         const checkEmail = await User.findOne({email});
         if (checkEmail) {
-            return res.status(401).json({
+            return res.status(400).json({
                 message: "Try different email",
                 success: false
             });
         }
         const checkUsername =  await User.findOne({username: username});
         if (checkUsername) {
-            return res.status(401).json({
+            return res.status(400).json({
                 message: "The username is not available",
                 success: false
             });
@@ -30,24 +32,31 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        await User.create({
+        const user = await User.create({
             username,
             email,
             password: hashedPassword,
         });
-        return res.status(201).json({
+        const token = await jwt.sign(
+            {userId: user._id},
+            process.env.SECRET_KEY,
+            {expiresIn: '1d'}
+        );
+        return res.cookie('token', token, { httpOnly: true, sameSite: 'strict', maxAge: 1*24*60*60*1000 }).json({
             message: 'Account created successfully',
-            success: true
+            success: true,
+            user
         })
     } catch (error) {
-        return res.status(error.status).json({
-            error: {
-                message: error.message,
-                stack: error.stack,
-                name: error.name,
-            },
-            success: false
-        })
+        return error;
+        // res.status(error.status).json({
+        //     error: {
+        //         message: error.message,
+        //         stack: error.stack,
+        //         name: error.name,
+        //     },
+        //     success: false
+        // })
     }
 }
 
@@ -56,7 +65,7 @@ export const login = async (req, res) => {
         const {email, password} = req.body;
 
         if (!email || !password) {
-            return res.status(401).json({
+            return res.status(400).json({
                 message: "Something is missing, please check!",
                 success: false
             });
