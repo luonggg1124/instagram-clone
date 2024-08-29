@@ -20,7 +20,7 @@ const Login = () => {
         setInput({...input, [e.target.name]: e.target.value});
     }
 
-    const signupHandler = async (e) => {
+    const loginHandler = async (e) => {
         e.preventDefault();
         try {
             setLoading(true);
@@ -46,7 +46,7 @@ const Login = () => {
         <div
             className="from-10% via-30%  to-90% bg-gradient-to-r from-sky-100 via-sky-50 bg-slate-200 to-violet-100 w-screen h-screen overflow-auto">
             <div className="flex items-center justify-center ">
-                <form onSubmit={signupHandler}
+                <form onSubmit={loginHandler}
                       className="bg-gradient-to-r bg-slate-400 shadow-lg my-4  flex flex-col gap-5 p-8 rounded ">
                     <div className="my-4">
                         <h1 className="text-center font-bold text-xl ">Instagram</h1>

@@ -29,7 +29,7 @@ export const sendMessage = async (req, res) => {
             newMessage
         });
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -54,7 +54,7 @@ export const getMessage = async (req, res) => {
         })
 
     }catch (error){
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,

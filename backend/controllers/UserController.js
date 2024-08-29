@@ -48,15 +48,15 @@ export const register = async (req, res) => {
             user
         })
     } catch (error) {
-        return error;
-        // res.status(error.status).json({
-        //     error: {
-        //         message: error.message,
-        //         stack: error.stack,
-        //         name: error.name,
-        //     },
-        //     success: false
-        // })
+
+        res.status(401).json({
+            error: {
+                message: error.message,
+                stack: error.stack,
+                name: error.name,
+            },
+            success: false
+        })
     }
 }
 
@@ -70,7 +70,7 @@ export const login = async (req, res) => {
                 success: false
             });
         }
-        let user = await User.findOne({email});
+        let user = await User.findOne({email: email});
         if (!user) {
             return res.status(401).json({
                 message: "Incorrect email.",
@@ -116,11 +116,12 @@ export const login = async (req, res) => {
             user
         });
     } catch (error) {
-         return res.status(error.status).json({
+         return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
                 name: error.name,
+               
             },
             success: false
         })
@@ -134,7 +135,7 @@ export const logout = async (req, res) => {
             success: true
         });
     }catch (error){
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -154,7 +155,7 @@ export const getProfile = async (req, res) => {
             success:true
         });
     }catch (error){
-         return res.status(error.status).json({
+         return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -204,7 +205,7 @@ export const editProfile = async (req, res) => {
         })
 
     }catch (error){
-         return res.status(error.status).json({
+         return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -228,7 +229,7 @@ export const getSuggestedUsers = async (req, res) => {
             users: suggestedUsers
         })
     }catch (error){
-         return res.status(error.status).json({
+         return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -280,7 +281,7 @@ export const followOrUnfollow = async (req, res) => {
             })
         }
     }catch (error){
-         return res.status(error.status).json({
+         return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,

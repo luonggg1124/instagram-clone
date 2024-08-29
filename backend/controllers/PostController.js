@@ -31,7 +31,7 @@ export const addNewPost = async (req, res) => {
         }
         await post.populate({path: 'author', select: '-password'});
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -61,7 +61,7 @@ export const getAllPost = async (req, res) => {
             success: true
         });
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -92,7 +92,7 @@ export const getUserPost = async (req, res) => {
             success: true
         });
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -125,7 +125,7 @@ export const likePost = async (req, res) => {
             success: true
         });
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -159,7 +159,7 @@ export const addComment = async (req, res) => {
             success: true
         })
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -183,7 +183,7 @@ export const getComments = async (req, res) => {
         });
         return res.status(200).json({success: true, comments});
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -216,7 +216,7 @@ export const deletePost = async (req, res) => {
         });
 
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
@@ -251,7 +251,7 @@ export const bookmarkPost = async (req, res) => {
             });
         }
     } catch (error) {
-        return res.status(error.status).json({
+        return res.status(401).json({
             error: {
                 message: error.message,
                 stack: error.stack,
