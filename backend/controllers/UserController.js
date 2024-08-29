@@ -71,19 +71,23 @@ export const login = async (req, res) => {
             });
         }
         let user = await User.findOne({email: email});
+
         if (!user) {
             return res.status(401).json({
                 message: "Incorrect email.",
                 success: false
             });
         }
+
         const isPasswordMatch = await bcrypt.compare(password, user.password);
-        if (!isPasswordMatch) {
+
+        if (isPasswordMatch !== true) {
             return res.status(401).json({
                 message: "Incorrect password",
                 success: false
             })
         }
+
         const token = await jwt.sign(
             {userId: user._id},
             process.env.SECRET_KEY,

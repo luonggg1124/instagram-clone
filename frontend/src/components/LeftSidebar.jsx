@@ -148,7 +148,7 @@ const LeftSidebar = () => {
                                 <div className="grid grid-cols items-center gap-2 mt-2">
                                     {bottomMoreItems.map((item, index) => {
                                         if (index !== sidebarItems.length - 1) {
-                                            return <div key={index} onClick={ item.method ? item.method : () => console.log("Nothing happened") }
+                                            return <div key={index} onClick={ item.method ? item.method : () => console.error("Something went wrong!") }
                                                         className={"flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3"}>
                                                 {item.icon}
                                                 <span>{item.text}</span>

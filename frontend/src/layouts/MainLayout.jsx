@@ -2,11 +2,14 @@ import React from 'react';
 import {Outlet} from "react-router-dom";
 import LeftSidebar from "@/components/LeftSidebar.jsx";
 
+
 const MainLayout = () => {
     return (
-        <div>
+        <div className="flex">
             <LeftSidebar/>
-            <Outlet/>
+            <div className="flex-grow">
+                <Outlet/>
+            </div>
         </div>
     );
 };
