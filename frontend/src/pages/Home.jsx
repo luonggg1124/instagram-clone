@@ -5,7 +5,7 @@ import RightSidebar from "@/components/RightSidebar.jsx";
 
 const Home = () => {
     return (
-        <div>
+        <div className="flex justify-between box-border">
             <Feed/>
             <RightSidebar/>
         </div>

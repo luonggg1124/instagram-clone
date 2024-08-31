@@ -7,7 +7,7 @@ const MainLayout = () => {
     return (
         <div className="flex">
             <LeftSidebar/>
-            <div className="flex-grow">
+            <div>
                 <Outlet/>
             </div>
         </div>

@@ -3,28 +3,34 @@ import {ChevronLeftIcon, ChevronRightIcon} from "lucide-react";
 
 export function Slider({items}) {
     const prevArrow=({loop, handlePrev, firstIndex}) => {
-        return (
-            <button
-                onClick={handlePrev}
-                disabled={!loop && firstIndex}
-                className="!absolute top-2/4 left-4 -translate-y-2/4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none size-8 max-w-[48px] max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
-            >
-                <ChevronLeftIcon strokeWidth={3} className="-ml-1 size-4"/>
-            </button>
-        );
+
+        if(!firstIndex){
+            return (
+                <button
+                    onClick={handlePrev}
+                    disabled={!loop && firstIndex}
+                    className={"!absolute top-2/4 left-4 -translate-y-2/4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none size-8 max-w-[48px] max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center "}
+                >
+                    <ChevronLeftIcon strokeWidth={3} className="-ml-1 size-4"/>
+
+                </button>
+            );
+        }
     };
-    const nextArrow = ({loop, handleNext, lastIndex}) => (
-        <button
-        onClick={handleNext}
-        disabled={!loop && lastIndex}
-        className="!absolute top-2/4 right-4 -translate-y-2/4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none size-8 max-w-[48px] max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
-        >
-        <ChevronRightIcon strokeWidth={3} className="ml-1 size-4"/>
-        </button>
-        );
+    const nextArrow = ({loop, handleNext, lastIndex}) => {
+        if(!lastIndex) {
+            return <button
+                onClick={handleNext}
+                disabled={!loop && lastIndex}
+                className="!absolute top-2/4 right-4 -translate-y-2/4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none size-8 max-w-[48px] max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
+            >
+                <ChevronRightIcon strokeWidth={3} className="ml-1 size-4"/>
+            </button>
+        }
+    };
 
     return (
-        <Carousel className="rounded-md"
+        <Carousel className="rounded-sm"
                   prevArrow={prevArrow}
                   nextArrow={nextArrow}
                   navigation={({setActiveIndex, activeIndex, length}) => (
@@ -43,7 +49,7 @@ export function Slider({items}) {
         >
             {items.map((item, index) => (<img
                 key={index}
-                src={item.url ? item.url : "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"}
+                src={item.url ? item.url : "https://picsum.photos/1000"}
                 alt={"image " + index}
                 className="h-full w-full object-cover"
             />))}

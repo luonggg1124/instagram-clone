@@ -7,4 +7,5 @@ npm i -D @types/node
 npx shadcn-ui@latest init  
 npm i axios  
 npm i react-router-dom  
-npm i @material-tailwind/react
+npm i @material-tailwind/react  
+npm install react-icons --save
